@@ -1,0 +1,14 @@
+{
+  "name": "toSrc",
+  "description": "Turns every JavaScript object or primitive into valid source code.",
+  "version": "0.1.0",
+  "homepage": "http://github.com/jhnns/toSource",
+  "repository": "git://github.com/jhnns/toSource.git",
+  "author": "Johannes Ewald <johannes.ewald@gmx.de>",
+  "main": "./lib/toSource.js",
+  "keywords": ["toSource", "source", "object", "obj2src", "serialization"],
+  "dependencies": {},
+  "engines": {
+    "node": "0.4.x"
+  }
+}

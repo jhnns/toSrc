@@ -88,6 +88,31 @@ var testObj = {
 };
 
 //////////////////////////////////////////////////////////////////////////////////
+/* Example tests */
+
+assert.equal(toSource(1), '1');
+assert.equal(toSource(Math.PI), 'Math.PI');
+assert.equal(toSource(true), 'true');
+assert.equal(toSource("1"), '"1"');
+assert.equal(toSource(/regex/gi), '/regex/gi');
+assert.ok(
+    /new Date\(\d+\)/gi.test(
+        toSource(new Date())
+    )
+);
+assert.equal(toSource(function() {
+    var test = "hello";
+}), 'function () {\n    var test = "hello";\n}'); 
+assert.equal(toSource([1, 2, "3"]), '[1, 2, "3"]');
+assert.equal(toSource({
+    "1": 1,
+    "regEx": /regex/gi,
+    "anotherObj": {
+        "test": "test"
+    }
+}), '{"1": 1, "regEx": /regex/gi, "anotherObj": undefined}');
+    
+//////////////////////////////////////////////////////////////////////////////////
 /**
  * This test should fail, because the default depth is 1.
  * All nested structures will be undefined
