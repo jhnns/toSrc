@@ -10,8 +10,8 @@ Note:
 
 * Unless you provide another depth parameter this module turns every nested structure within the given object into undefined.
 * Circular references will be undefined. No error is thrown, but a warning is logged.
-* All math constants are restored, e.g.: toSource(Math.PI) // = "Math.PI"
-* All dates are restored to their original time of creation, e.g.: toSource(new Date()) // = "new Date( ... time of creation in ms ... ")
+* All math constants are restored, e.g.: toSource(Math.PI) // = 'Math.PI'
+* All dates are restored to their original time of creation, e.g.: toSource(new Date()) // = 'new Date( ... time of creation in ms ... )'
 
 Feel free to modify the code to meet your needs.
 
