@@ -7,6 +7,7 @@ and reuse them in another environment such as a browser, since JSON.stringify
 doesnt convert functions, dates or RegEx.
 
 Note:
+
 * Unless you provide another depth parameter this module turns every nested structure within the given object into undefined.
 * Circular references will be undefined. No error is thrown, but a warning is logged.
 * All math constants are restored, e.g.: toSource(Math.PI) // = Math.PI
@@ -17,6 +18,7 @@ Feel free to modify the code to meet your needs.
 Usage
 -----
 The module returns a single function accepting these parameters:
+
 * obj: The object to stringify. Can be a primitive, too.
 * depth (optional): Specify the depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1.
 
