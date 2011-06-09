@@ -1,4 +1,4 @@
-toSource
+toSrc
 ========
 
 This node.js module turns every JavaScript object or primitive into valid source
@@ -10,8 +10,8 @@ Note:
 
 * Unless you provide another depth parameter this module turns every nested structure within the given object into undefined.
 * Circular references will be undefined. No error is thrown, but a warning is logged.
-* All math constants are restored, e.g.: toSource(Math.PI) // = 'Math.PI'
-* All dates are restored to their original time of creation, e.g.: toSource(new Date()) // = 'new Date( ... time of creation in ms ... )'
+* All math constants are restored, e.g.: toSrc(Math.PI) // = 'Math.PI'
+* All dates are restored to their original time of creation, e.g.: toSrc(new Date()) // = 'new Date( ... time of creation in ms ... )'
 
 Feel free to modify the code to meet your needs.
 
@@ -25,21 +25,21 @@ The module returns a single function accepting these parameters:
 Examples
 -----
 
-    var toSource = require('toSource');
+    var toSrc = require('toSrc');
 
-    toSource(1); // = '1'
-    toSource(Math.PI); // = 'Math.PI'
-    toSource(true); // = 'true'
-    toSource("1"); // = '"1"'
-    toSource(/regex/gi); // = '/regex/gi'
-    toSource(new Date()); // = 'new Date( ... the time of creation in ms ... )'
-    toSource(function() {
+    toSrc(1); // = '1'
+    toSrc(Math.PI); // = 'Math.PI'
+    toSrc(true); // = 'true'
+    toSrc("1"); // = '"1"'
+    toSrc(/regex/gi); // = '/regex/gi'
+    toSrc(new Date()); // = 'new Date( ... the time of creation in ms ... )'
+    toSrc(function() {
         var test = "hello";
     }); /* = 'function () {
                  var test = "hello";
              }' */
-    toSource([1, 2, "3"]); // = '[1, 2, "3"]'
-    toSource({
+    toSrc([1, 2, "3"]); // = '[1, 2, "3"]'
+    toSrc({
         "1": 1,
         "regEx": /regex/gi,
         "anotherObj": {
