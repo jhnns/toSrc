@@ -1,5 +1,39 @@
 var toSource = require('../lib/toSource'),
     assert = require('assert');
+    
+function checkIdentity(source, copy) {
+    var key,
+        result;
+    
+    
+    if(source === undefined || copy === undefined) {
+        return source === copy;
+    } else if(typeof source === 'string' || source instanceof String) {
+        return source === copy;
+    } else if(typeof source === 'function' || source instanceof Function) {
+        return source.toString() === copy.toString();
+    } else if(typeof source === 'boolean' || source instanceof Boolean) {
+        return source === copy;
+    } else if(typeof source === 'number' || source instanceof Number) {
+        return source.toString() === copy.toString();   // .toString() necessary to check for NaN.
+    } else if(source === null) {
+        return source === copy;
+    } else if(source instanceof RegExp) {
+        return source.toString() === copy.toString();
+    } else if(source instanceof Date) {
+        return source.getTime() === copy.getTime();
+    } else if(typeof source === 'object') {
+        for(key in source) {
+            result = checkIdentity(source[key], copy[key]);
+            if(result === false) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    return false;
+}
 
 var referenceTestObj = {
     "one": "one",
@@ -8,9 +42,7 @@ var referenceTestObj = {
 
 var testObj = {
     "string1": "this is a string",
-    "string2": new String("this is a string"),
     "number1": 2,
-    "number2": new Number(2),
     "MAX_VALUE": Number.MAX_VALUE,
     "MIN_VALUE": Number.MIN_VALUE,
     "POSITIVE_INFINITY": Number.POSITIVE_INFINITY,
@@ -25,7 +57,6 @@ var testObj = {
     "Math.SQRT1_2": Math.SQRT1_2,
     "Math.SQRT2": Math.SQRT2,
     "boolean1": true,
-    "boolean2": new Boolean(1),
     "functionTest": function() {
         console.log("hello");
     },
@@ -56,44 +87,49 @@ var testObj = {
     "referenceTestObj": referenceTestObj
 };
 
-console.log(toSource(testObj));
-eval('var copy = ' + toSource(testObj));
-assert.ok(checkIdentity(testObj, copy));
-
-function checkIdentity(source, copy) {
-    var key;
-    var result;
+//////////////////////////////////////////////////////////////////////////////////
+/**
+ * This test should fail, because the default depth is 1.
+ * All nested structures will be undefined
+ */
     
-    if(typeof source === 'string' || source instanceof String) {
-        return source === copy;
-    } else if(typeof source === 'function' || source instanceof Function) {
-        return source.toString() === copy.toString();
-    } else if(typeof source === 'boolean' || source instanceof Boolean) {
-        return source === copy;
-    } else if(typeof source === 'number' || source instanceof Number) {
-        return source === copy;
-    } else if(source === null) {
-        return source === copy;
-    } else if(source instanceof RegEx) {
-        return source.toString() === copy.toString();
-    } else if(source instanceof Date) {
-        return source.getTime() === copy.getTime();
-    } else if(typeof source === 'object') {
-        for(key in source) {
-            console.log(key);
-            //result = checkIdentity(source[key], copy[key]);
-            if(result === false) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    return false;
-}
+eval('var copy = ' + toSource(testObj));    // depth = 1
+assert.equal(checkIdentity(testObj, copy), false);
 
+//////////////////////////////////////////////////////////////////////////////////
+/**
+ * This test should also fail because depth=2 is insufficient.
+ * complexArray[1] will be undefined.
+ */
 
+eval('var copy = ' + toSource(testObj, 2)); // depth = 2
+assert.equal(checkIdentity(testObj, copy), false);
 
+//////////////////////////////////////////////////////////////////////////////////
+/**
+ * This test should succeed
+ */
+
+eval('var copy = ' + toSource(testObj, 3)); // depth = 3
+assert.equal(checkIdentity(testObj, copy), true);
+
+//////////////////////////////////////////////////////////////////////////////////
+/**
+ * This test should also succeed. An so on...
+ */
+ 
+eval('var copy = ' + toSource(testObj, 4));
+assert.equal(checkIdentity(testObj, copy), true);
+
+//////////////////////////////////////////////////////////////////////////////////
+/**
+ * This test should fail, because the object contains a circular reference.
+ */
+ 
+testObj.circularRef = testObj
+console.log('You should see a warning now...');
+eval('var copy = ' + toSource(testObj, 3));
+assert.equal(checkIdentity(testObj, copy), false);
 
 
 
