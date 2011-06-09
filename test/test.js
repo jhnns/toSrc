@@ -1,4 +1,7 @@
-var toSource = require('../lib/toSource'),
+//////////////////////////////////////////////////////////////////////////////////
+/** Test preperations */
+
+var toSrc = require('../lib/toSrc'),
     assert = require('assert');
     
 function checkIdentity(source, copy) {
@@ -88,23 +91,23 @@ var testObj = {
 };
 
 //////////////////////////////////////////////////////////////////////////////////
-/* Example tests */
+/** Example tests */
 
-assert.equal(toSource(1), '1');
-assert.equal(toSource(Math.PI), 'Math.PI');
-assert.equal(toSource(true), 'true');
-assert.equal(toSource("1"), '"1"');
-assert.equal(toSource(/regex/gi), '/regex/gi');
+assert.equal(toSrc(1), '1');
+assert.equal(toSrc(Math.PI), 'Math.PI');
+assert.equal(toSrc(true), 'true');
+assert.equal(toSrc("1"), '"1"');
+assert.equal(toSrc(/regex/gi), '/regex/gi');
 assert.ok(
     /new Date\(\d+\)/gi.test(
-        toSource(new Date())
+        toSrc(new Date())
     )
 );
-assert.equal(toSource(function() {
+assert.equal(toSrc(function() {
     var test = "hello";
 }), 'function () {\n    var test = "hello";\n}'); 
-assert.equal(toSource([1, 2, "3"]), '[1, 2, "3"]');
-assert.equal(toSource({
+assert.equal(toSrc([1, 2, "3"]), '[1, 2, "3"]');
+assert.equal(toSrc({
     "1": 1,
     "regEx": /regex/gi,
     "anotherObj": {
@@ -118,7 +121,7 @@ assert.equal(toSource({
  * All nested structures will be undefined
  */
     
-eval('var copy = ' + toSource(testObj));    // depth = 1
+eval('var copy = ' + toSrc(testObj));    // depth = 1
 assert.equal(checkIdentity(testObj, copy), false);
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +130,7 @@ assert.equal(checkIdentity(testObj, copy), false);
  * complexArray[1] will be undefined.
  */
 
-eval('var copy = ' + toSource(testObj, 2)); // depth = 2
+eval('var copy = ' + toSrc(testObj, 2)); // depth = 2
 assert.equal(checkIdentity(testObj, copy), false);
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +138,7 @@ assert.equal(checkIdentity(testObj, copy), false);
  * This test should succeed
  */
 
-eval('var copy = ' + toSource(testObj, 3)); // depth = 3
+eval('var copy = ' + toSrc(testObj, 3)); // depth = 3
 assert.equal(checkIdentity(testObj, copy), true);
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +146,7 @@ assert.equal(checkIdentity(testObj, copy), true);
  * This test should also succeed. An so on...
  */
  
-eval('var copy = ' + toSource(testObj, 4));
+eval('var copy = ' + toSrc(testObj, 4));
 assert.equal(checkIdentity(testObj, copy), true);
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -153,7 +156,7 @@ assert.equal(checkIdentity(testObj, copy), true);
  
 testObj.circularRef = testObj
 console.log('You should see a warning now...');
-eval('var copy = ' + toSource(testObj, 3));
+eval('var copy = ' + toSrc(testObj, 3));
 assert.equal(checkIdentity(testObj, copy), false);
 
 
