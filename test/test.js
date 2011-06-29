@@ -12,7 +12,6 @@ function checkIdentity(source, copy) {
     var key,
         result;
 
-    //console.log(source, copy);
     if(source === undefined || copy === undefined) {
         return source === copy;
     } else if(typeOf(source) === 'String') {
