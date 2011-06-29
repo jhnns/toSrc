@@ -3,29 +3,33 @@
 
 var toSrc = require('../lib/toSrc'),
     assert = require('assert');
-    
+
+function typeOf(obj) {
+    return Object.prototype.toString.call(obj).slice(8, -1);    // Returns a string like "Object", "Array", "String", ...
+}
+
 function checkIdentity(source, copy) {
     var key,
         result;
-    
-    
+
+    //console.log(source, copy);
     if(source === undefined || copy === undefined) {
         return source === copy;
-    } else if(typeof source === 'string' || source instanceof String) {
+    } else if(typeOf(source) === 'String') {
         return source === copy;
-    } else if(typeof source === 'function' || source instanceof Function) {
+    } else if(typeOf(source) === 'Function') {
         return source.toString() === copy.toString();
-    } else if(typeof source === 'boolean' || source instanceof Boolean) {
+    } else if(typeOf(source) === 'Boolean') {
         return source === copy;
-    } else if(typeof source === 'number' || source instanceof Number) {
+    } else if(typeOf(source) === 'Number') {
         return source.toString() === copy.toString();   // .toString() necessary to check for NaN.
     } else if(source === null) {
         return source === copy;
-    } else if(source instanceof RegExp) {
+    } else if(typeOf(source) === 'RegExp') {
         return source.toString() === copy.toString();
-    } else if(source instanceof Date) {
+    } else if(typeOf(source) === 'Date') {
         return source.getTime() === copy.getTime();
-    } else if(typeof source === 'object') {
+    } else if(typeOf(source) === 'Object' || typeOf(source) === 'Array') {
         for(key in source) {
             result = checkIdentity(source[key], copy[key]);
             if(result === false) {
@@ -34,7 +38,7 @@ function checkIdentity(source, copy) {
         }
         return true;
     }
-    
+
     return false;
 }
 
@@ -105,7 +109,7 @@ assert.ok(
 );
 assert.equal(toSrc(function() {
     var test = "hello";
-}), 'function () {\n    var test = "hello";\n}'); 
+}), 'function () {\n    var test = "hello";\n}');
 assert.equal(toSrc([1, 2, "3"]), '[1, 2, "3"]');
 assert.equal(toSrc({
     "1": 1,
@@ -114,13 +118,13 @@ assert.equal(toSrc({
         "test": "test"
     }
 }), '{"1": 1, "regEx": /regex/gi, "anotherObj": undefined}');
-    
+
 //////////////////////////////////////////////////////////////////////////////////
 /**
  * This test should fail, because the default depth is 1.
  * All nested structures will be undefined
  */
-    
+
 eval('var copy = ' + toSrc(testObj));    // depth = 1
 assert.equal(checkIdentity(testObj, copy), false);
 
@@ -145,7 +149,7 @@ assert.equal(checkIdentity(testObj, copy), true);
 /**
  * This test should also succeed. An so on...
  */
- 
+
 eval('var copy = ' + toSrc(testObj, 4));
 assert.equal(checkIdentity(testObj, copy), true);
 
@@ -153,7 +157,7 @@ assert.equal(checkIdentity(testObj, copy), true);
 /**
  * This test should fail, because the object contains a circular reference.
  */
- 
+
 testObj.circularRef = testObj
 console.log('You should see a warning now...');
 eval('var copy = ' + toSrc(testObj, 3));
