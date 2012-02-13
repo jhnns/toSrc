@@ -53,7 +53,7 @@ var testObj = {
     "MIN_VALUE": Number.MIN_VALUE,
     "POSITIVE_INFINITY": Number.POSITIVE_INFINITY,
     "NEGATIVE_INFINITY": Number.NEGATIVE_INFINITY,
-    "NaN": Number.NaN,
+    "NaN": NaN,
     "MathE": Math.E,
     "MathLN2": Math.LN2,
     "MathLN10": Math.LN10,
