@@ -26,22 +26,27 @@ Examples
     var toSrc = require("toSrc");
     
     // Primitives
+    ///////////////////////////////////////
     toSrc(1); // = '1'
     toSrc(true); // = 'true'
     toSrc("1"); // = '"1"'
 
     // Constants
+    ///////////////////////////////////////
     toSrc(Math.PI); // = 'Math.PI'
     toSrc(NaN); // = 'NaN'
 
     // RegExp
+    ///////////////////////////////////////
     toSrc(/myRegEx/gi); // = '/myRegEx/gi'
     toSrc(new RegExp("myRegEx"); // = '/myRegEx/'
 
     // Date
+    ///////////////////////////////////////
     toSrc(new Date()); // = 'new Date(<the time of creation in ms>)'
 
     // Functions
+    ///////////////////////////////////////
     toSrc(function() {
         var test = "hello";
     }); /* = 'function () {
@@ -49,22 +54,28 @@ Examples
              }' */
 
     // Arrays
+    ///////////////////////////////////////
     toSrc([1, 2, "3"]); // = '[1, 2, "3"]'
+    toSrc([1, 2, ["a", "b", "c"]]); // = '[1, 2, undefined]' because the depth is 1 by default
+    toSrc([1, 2, ["a", "b", "c"]], 2); // = '[1, 2, ["a", "b", "c"]]'
 
-    // Nested objects
+    // Objects
+    ///////////////////////////////////////
     toSrc({
         "regEx": /regex/gi,
         "anotherObj": {
             "test": "test"
         }
-    }); // = '{"regEx": /regex/gi, "anotherObj": undefined}'
-        // anotherObj is undefined because the depth is 1 by default.
+    });
+    // = '{"regEx": /regex/gi, "anotherObj": undefined}'
+    // anotherObj is undefined because the depth is 1 by default.
     toSrc({
         "regEx": /regex/gi,
         "anotherObj": {
             "test": "test"
         }
-    }, 2); // = '{"regEx": /regex/gi, "anotherObj": {"test": "test"}}'
+    }, 2);
+    // = '{"regEx": /regex/gi, "anotherObj": {"test": "test"}}'
 ```
 
 For more examples, check out the `test/test.js`
@@ -74,6 +85,6 @@ Notes
 * **Circular references** will be undefined. No error is thrown, but a warning is logged.
 * All **math constants** are restored to their source representation, e.g.: `toSrc(Math.PI); // = 'Math.PI' instead of 3.14...`
 * All **dates** are restored to their original time of creation, e.g.: `toSrc(new Date()) // = 'new Date(<time of creation in ms>)'`
-* **Dynamic regular expressions** created via `new RegExp()` will NOT be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of some string>/'` instead of `'new RegExp(someString)'
+* **Dynamic regular expressions** created via `new RegExp()` will NOT be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of someString>/'` instead of `'new RegExp(someString)'
 
 Feel free to modify the code to meet your needs.
