@@ -1,48 +1,80 @@
 toSrc
 ========
 
-This node.js module turns every JavaScript object or primitive into valid source
-code. Useful to serialize classes, modules or other programming objects
-and reuse them in another environment such as a browser, since JSON.stringify
-doesnt convert functions, dates or RegEx.
+**Turns every JavaScript object or primitive into valid source
+code that can be evaled again.**
 
-Note:
+You can use it to serialize classes, modules or other programming objects
+and reuse them in an other environment such as a browser. JSON.stringify doesnt work with programming objects (with functions, dates, etc.) because they're no legal JSONs.
 
-* Unless you provide another depth parameter this module turns every nested structure within the given object into undefined.
-* Circular references will be undefined. No error is thrown, but a warning is logged.
-* All math constants are restored, e.g.: toSrc(Math.PI) // = 'Math.PI'
-* All dates are restored to their original time of creation, e.g.: toSrc(new Date()) // = 'new Date( ... time of creation in ms ... )'
-
-Feel free to modify the code to meet your needs.
+Installation
+------------
+`npm install toSrc`
 
 Usage
 -----
-The module returns a single function accepting these parameters:
+`require("toSrc")` returns a single function accepting these parameters:
 
-* obj: The object to stringify. Can be a primitive, too.
-* depth (optional): Specify the depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1.
+1. **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
+2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array will be undefined by default.*
+
 
 Examples
 -----
 
-    var toSrc = require('toSrc');
-
+```javascript
+    var toSrc = require("toSrc");
+    
+    // Primitives
     toSrc(1); // = '1'
-    toSrc(Math.PI); // = 'Math.PI'
     toSrc(true); // = 'true'
     toSrc("1"); // = '"1"'
-    toSrc(/regex/gi); // = '/regex/gi'
-    toSrc(new Date()); // = 'new Date( ... the time of creation in ms ... )'
+
+    // Constants
+    toSrc(Math.PI); // = 'Math.PI'
+    toSrc(NaN); // = 'NaN'
+
+    // RegExp
+    toSrc(/myRegEx/gi); // = '/myRegEx/gi'
+    toSrc(new RegExp("myRegEx"); // = '/myRegEx/'
+
+    // Date
+    toSrc(new Date()); // = 'new Date(<the time of creation in ms>)'
+
+    // Functions
     toSrc(function() {
         var test = "hello";
     }); /* = 'function () {
                  var test = "hello";
              }' */
+
+    // Arrays
     toSrc([1, 2, "3"]); // = '[1, 2, "3"]'
+
+    // Nested objects
     toSrc({
         "1": 1,
         "regEx": /regex/gi,
         "anotherObj": {
             "test": "test"
         }
-    }); /* = '{"1": 1, "regEx": /regex/gi, "anotherObj": undefined}'  --> anotherObj is undefined because the depth is 1.
+    }); /* = '{"1": 1, "regEx": /regex/gi, "anotherObj": undefined}'  --> anotherObj is undefined because the depth is 1 by default.
+    toSrc({
+        "1": 1,
+        "regEx": /regex/gi,
+        "anotherObj": {
+            "test": "test"
+        }
+    }, 2); /* = '{"1": 1, "regEx": /regex/gi, "anotherObj": {"test": "test"}}'
+```
+
+For more examples, check out the `test/test.js`
+
+Notes
+-----
+* Circular references will be undefined. No error is thrown, but a warning is logged.
+* All math constants are restored to their source representation, e.g.: `toSrc(Math.PI); // = 'Math.PI' instead of 3.14...`
+* All dates are restored to their original time of creation, e.g.: `toSrc(new Date()) // = 'new Date(<time of creation in ms>)'`
+* Dynamic regular expressions created via `new RegExp()` will not be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of some string>/'` instead of `'new RegExp(someString)'
+
+Feel free to modify the code to meet your needs.
