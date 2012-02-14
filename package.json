@@ -1,9 +1,9 @@
 {
     "name": "toSrc",
     "description": "Turns every JavaScript object or primitive into valid source code.",
-    "version": "0.1.0",
-    "homepage": "http://github.com/jhnns/toSrc",
-    "repository": "git://github.com/jhnns/toSrc.git",
+    "version": "0.1.1",
+    "homepage": "https://github.com/pandaa/toSrc",
+    "repository": "git://github.com/pandaa/toSrc.git",
     "author": "Johannes Ewald <mail@johannesewald.de>",
     "main": "./lib/toSrc.js",
     "keywords": ["toSource", "toSrc", "source", "object", "serialization", "stringify", "JSON", "eval", "vm", "obj2src"],
