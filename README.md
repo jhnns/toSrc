@@ -53,19 +53,18 @@ Examples
 
     // Nested objects
     toSrc({
-        "1": 1,
         "regEx": /regex/gi,
         "anotherObj": {
             "test": "test"
         }
-    }); /* = '{"1": 1, "regEx": /regex/gi, "anotherObj": undefined}'  --> anotherObj is undefined because the depth is 1 by default.
+    }); // = '{"regEx": /regex/gi, "anotherObj": undefined}'
+        // anotherObj is undefined because the depth is 1 by default.
     toSrc({
-        "1": 1,
         "regEx": /regex/gi,
         "anotherObj": {
             "test": "test"
         }
-    }, 2); /* = '{"1": 1, "regEx": /regex/gi, "anotherObj": {"test": "test"}}'
+    }, 2); // = '{"regEx": /regex/gi, "anotherObj": {"test": "test"}}'
 ```
 
 For more examples, check out the `test/test.js`
