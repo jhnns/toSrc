@@ -5,7 +5,7 @@ toSrc
 code that can be evaled again.**
 
 You can use it to serialize classes, modules or other programming objects
-and reuse them in an other environment such as a browser. JSON.stringify doesnt work with programming objects (with functions, dates, etc.) because they're no legal JSONs.
+and reuse them in an other environment such as a browser. JSON.stringify doesnt work with programming objects (that contain functions, dates, etc.) because they're no legal JSONs.
 
 Installation
 ------------
