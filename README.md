@@ -7,22 +7,33 @@ code that can be evaled again.**
 You can use it to serialize classes, modules or other programming objects
 and reuse them in an other environment such as a browser. JSON.stringify doesnt work with programming objects (that contain functions, dates, etc.) because they're no legal JSONs.
 
+Works with node.js (tested) or in the browser (not tested)
+
 Installation
 ------------
 `npm install toSrc`
 
 Usage
 -----
-`require("toSrc")` returns a single function accepting these parameters:
+* **Params**
 
-1. **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
-2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array will be undefined by default.*
+    1. **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
+    2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array will be undefined by default.*
+
+* **In node.js**
+
+    `require("toSrc")(obj, depth);`
+
+* **In the browser**
+
+    Just call `toSrc(obj, depth);`
 
 
 Examples
 -----
 
 ```javascript
+
     var toSrc = require("toSrc");
     
     // Primitives
@@ -76,6 +87,7 @@ Examples
         }
     }, 2);
     // = '{"regEx": /regex/gi, "anotherObj": {"test": "test"}}'
+
 ```
 
 For more examples, check out the `test/test.js`

@@ -106,9 +106,7 @@ assert.ok(
         toSrc(new Date())
     )
 );
-assert.equal(toSrc(function() {
-    var test = "hello";
-}), 'function () {\n    var test = "hello";\n}');
+assert.equal(toSrc(function() { var test = "hello"; }), 'function () { var test = "hello"; }');
 assert.equal(toSrc([1, 2, "3"]), '[1, 2, "3"]');
 assert.equal(toSrc({
     "1": 1,
