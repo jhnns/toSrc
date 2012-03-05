@@ -50,7 +50,7 @@ Examples
     // RegExp
     ///////////////////////////////////////
     toSrc(/myRegEx/gi); // = '/myRegEx/gi'
-    toSrc(new RegExp("myRegEx"); // = '/myRegEx/'
+    toSrc(new RegExp("myRegEx")); // = '/myRegEx/'
 
     // Date
     ///////////////////////////////////////
