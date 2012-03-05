@@ -58,11 +58,11 @@ Examples
 
     // Functions
     ///////////////////////////////////////
-    toSrc(function() {
+    function testFunc() {
         var test = "hello";
-    }); /* = 'function () {
-                 var test = "hello";
-             }' */
+    }
+    toSrc(testFunc); /* = 'function () {\nvar test = "hello";\n}' */
+    toSrc(String); // = 'String', native functions don't expose the source code
 
     // Arrays
     ///////////////////////////////////////

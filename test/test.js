@@ -2,7 +2,8 @@
 /** Test preperations */
 
 var toSrc = require('../lib/toSrc'),
-    assert = require('assert');
+    assert = require('assert'),
+    _log = console.log;
 
 function typeOf(obj) {
     return Object.prototype.toString.call(obj).slice(8, -1);    // Returns a string like "Object", "Array", "String", ...
@@ -90,7 +91,16 @@ var testObj = {
             console.log("hello");
         }
     },
-    "referenceTestObj": referenceTestObj
+    "referenceTestObj": referenceTestObj,
+    "Boolean": Boolean,
+    "String": String,
+    "Number": Number,
+    "Array": Array,
+    "Function": Function,
+    "Object": Object,
+    "RegExp": RegExp,
+    "Date": Date,
+    "Error": Error
 };
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -155,11 +165,15 @@ assert.equal(checkIdentity(testObj, copy), true);
  * This test should fail, because the object contains a circular reference.
  */
 
-testObj.circularRef = testObj
-console.log('You should see a warning now...');
+testObj.circularRef = testObj;
+console.log = function (msg) {  // stubbing console.log
+    console.log.times++;
+};
+console.log.times = 0;
 eval('var copy = ' + toSrc(testObj, 3));
 assert.equal(checkIdentity(testObj, copy), false);
-
+assert.strictEqual(console.log.times, 1);   // toSrc should print a warning on console.log
+console.log = _log; // returning stub
 
 
 
