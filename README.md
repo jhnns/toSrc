@@ -61,7 +61,7 @@ Examples
     function testFunc() {
         var test = "hello";
     }
-    toSrc(testFunc); /* = 'function () {\nvar test = "hello";\n}' */
+    toSrc(testFunc); /* = 'function () {\n    var test = "hello";\n}' */
     toSrc(String); // = 'String', native functions don't expose the source code
 
     // Arrays
