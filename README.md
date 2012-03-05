@@ -18,7 +18,7 @@ Usage
 * **toSrc(obj, depth=1)**
 
     1. **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
-    2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array will be undefined by default.*
+    2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within ```obj``` will be undefined by default.*
 
 * **In node.js**
 
