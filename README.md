@@ -58,9 +58,9 @@ Examples
     // Objects
     ///////////////////////////////////////
     toSrc({
-        "regEx": /regex/gi,
-        "anotherObj": {
-            "test": "test"
+        regEx: /regex/gi,
+        anotherObj: {
+            test: "test"
         }
     });
     // = '{"regEx": /regex/gi, "anotherObj": undefined}'
