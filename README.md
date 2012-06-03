@@ -13,22 +13,6 @@ Installation
 ------------
 `npm install toSrc`
 
-Usage
------
-* **toSrc(obj, depth=1)**
-
-    1. **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
-    2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within ```obj``` will be undefined by default.*
-
-* **In node.js**
-
-    `require("toSrc")(obj, depth);`
-
-* **In the browser**
-
-    Just call `toSrc(obj, depth);`
-
-
 Examples
 -----
 
@@ -91,7 +75,24 @@ Examples
 
 ```
 
-For more examples, check out the `test/test.js`
+For more examples, check out `test/test.js`
+
+
+Usage
+-----
+* **toSrc(obj, depth=1)**
+
+    - **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
+    - **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within ```obj``` will be undefined by default.*
+
+* **In node.js**
+
+    `require("toSrc")(obj, depth);`
+
+* **In the browser**
+
+    Just call `toSrc(obj, depth);`
+    
 
 Notes
 -----
