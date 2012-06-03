@@ -41,6 +41,7 @@ Examples
     toSrc(1); // = '1'
     toSrc(true); // = 'true'
     toSrc("1"); // = '"1"'
+    toSrc('1'); // = '"1"' toSrc always uses double-quotes    
 
     // Constants
     ///////////////////////////////////////
