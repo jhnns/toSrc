@@ -1,4 +1,4 @@
-**toSrc** stringifies your objects
+**toSrc**
 ========
 
 **Turns every JavaScript object or primitive into valid source
