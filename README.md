@@ -52,14 +52,14 @@ Examples
     function testFunc() {
         var test = "hello";
     }
-    toSrc(testFunc); /* = 'function testFunc() {\n    var test = "hello";\n}' */
+    toSrc(testFunc); // = 'function testFunc() {\n    var test = "hello";\n}'
     toSrc(String); // = 'String', native functions don't expose the source code
 
     // Arrays
     ///////////////////////////////////////
     toSrc([1, 2, "3"]); // = '[1, 2, "3"]'
-    toSrc([1, 2, ["a", "b", "c"]]); // = '[1, 2, undefined]' because the depth is
-                                    // 1 by default
+    toSrc([1, 2, ["a", "b", "c"]]); // = '[1, 2, undefined]' because the depth
+                                    // is 1 by default
     toSrc([1, 2, ["a", "b", "c"]], 2); // = '[1, 2, ["a", "b", "c"]]'
 
     // Objects
