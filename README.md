@@ -78,12 +78,12 @@ Examples
 For more examples, check out `test/test.js`
 
 
-Usage
+API
 -----
-* **toSrc(obj, depth=1)**
+**toSrc(***obj*, *depth*)
 
-    - **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
-    - **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within ```obj``` will be undefined by default.*
+    - *{*} obj*: The object to stringify. Can also be a primitive like `1` or `true`.
+    - *{Number=1} depth (optional)*: The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within `obj` will be undefined by default.
 
 * **In node.js**
 
