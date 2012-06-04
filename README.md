@@ -1,4 +1,4 @@
-toSrc
+**toSrc**
 ========
 
 **Turns every JavaScript object or primitive into valid source
@@ -13,22 +13,6 @@ Installation
 ------------
 `npm install toSrc`
 
-Usage
------
-* **Params**
-
-    1. **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
-    2. **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array will be undefined by default.*
-
-* **In node.js**
-
-    `require("toSrc")(obj, depth);`
-
-* **In the browser**
-
-    Just call `toSrc(obj, depth);`
-
-
 Examples
 -----
 
@@ -41,6 +25,7 @@ Examples
     toSrc(1); // = '1'
     toSrc(true); // = 'true'
     toSrc("1"); // = '"1"'
+    toSrc('1'); // = '"1"' toSrc always uses double-quotes    
 
     // Constants
     ///////////////////////////////////////
@@ -50,7 +35,7 @@ Examples
     // RegExp
     ///////////////////////////////////////
     toSrc(/myRegEx/gi); // = '/myRegEx/gi'
-    toSrc(new RegExp("myRegEx"); // = '/myRegEx/'
+    toSrc(new RegExp("myRegEx")); // = '/myRegEx/'
 
     // Date
     ///////////////////////////////////////
@@ -61,7 +46,7 @@ Examples
     function testFunc() {
         var test = "hello";
     }
-    toSrc(testFunc); /* = 'function () {\nvar test = "hello";\n}' */
+    toSrc(testFunc); /* = 'function () {\n    var test = "hello";\n}' */
     toSrc(String); // = 'String', native functions don't expose the source code
 
     // Arrays
@@ -73,9 +58,9 @@ Examples
     // Objects
     ///////////////////////////////////////
     toSrc({
-        "regEx": /regex/gi,
-        "anotherObj": {
-            "test": "test"
+        regEx: /regex/gi,
+        anotherObj: {
+            test: "test"
         }
     });
     // = '{"regEx": /regex/gi, "anotherObj": undefined}'
@@ -90,7 +75,24 @@ Examples
 
 ```
 
-For more examples, check out the `test/test.js`
+For more examples, check out `test/test.js`
+
+
+Usage
+-----
+* **toSrc(obj, depth=1)**
+
+    - **obj**: *The object to stringify. Can also be a primitive like `1` or `true`.*
+    - **depth** (optional): *The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within ```obj``` will be undefined by default.*
+
+* **In node.js**
+
+    `require("toSrc")(obj, depth);`
+
+* **In the browser**
+
+    Just call `toSrc(obj, depth);`
+    
 
 Notes
 -----
