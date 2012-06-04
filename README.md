@@ -85,13 +85,13 @@ API
 - *{*} obj*: The object to stringify. Can also be a primitive like `1` or `true`.
 - *{Number=1} depth (optional)*: The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within `obj` will be undefined by default.
 
-* **In node.js**
+**In node.js**
 
-    `require("toSrc")(obj, depth);`
+`require("toSrc")(obj, depth);`
 
-* **In the browser**
+**In the browser**
 
-    Just call `toSrc(obj, depth);`
+Just call `toSrc(obj, depth);`
     
 
 Notes
