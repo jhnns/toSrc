@@ -9,9 +9,13 @@ and reuse them in an other environment such as a browser. JSON.stringify doesnt 
 
 Works with node.js (tested) or in the browser (not tested)
 
+-----------------------------------------------------------------
+
 Installation
 ------------
 `npm install toSrc`
+
+-----------------------------------------------------------------
 
 Examples
 -----
@@ -75,8 +79,9 @@ Examples
 
 ```
 
-For more examples, check out `test/test.js`
+For more examples check out `test/test.js`
 
+-----------------------------------------------------------------
 
 API
 -----
@@ -92,13 +97,42 @@ API
 **In the browser**
 
 Just call `toSrc(obj, depth);`
-    
+
+-----------------------------------------------------------------
 
 Notes
 -----
-* **Circular references** will be undefined. No error is thrown, but a warning is logged.
-* All **math constants** are restored to their source representation, e.g.: `toSrc(Math.PI); // = 'Math.PI' instead of 3.14...`
-* All **dates** are restored to their original time of creation, e.g.: `toSrc(new Date()) // = 'new Date(<time of creation in ms>)'`
-* **Dynamic regular expressions** created via `new RegExp()` will NOT be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of someString>/'` instead of `'new RegExp(someString)'
+* Circular references will be undefined. No error is thrown, but a warning is logged.
+* All math constants are restored to their source representation, e.g.: `toSrc(Math.PI); // = 'Math.PI' instead of 3.14...`
+* All dates are restored to their original time of creation, e.g.: `toSrc(new Date()) // = 'new Date(<time of creation in ms>)'`
+* Dynamic regular expressions created via `new RegExp()` will **not** be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of someString>/'` instead of `'new RegExp(someString)'
 
 Feel free to modify the code to meet your needs.
+
+
+-----------------------------------------------------------------
+
+## License
+
+(The MIT License)
+
+Copyright (c) 2012 Johannes Ewald &lt;mail@johannesewald.de&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
