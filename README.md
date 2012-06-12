@@ -1,4 +1,5 @@
-**toSrc**
+**toSrc** [![Build Status](https://secure.travis-ci.org/jhnns/toSrc.png?branch=master)](http://travis-ci
+.org/jhnns/toSrc)
 ========
 
 **Turns every JavaScript object or primitive into valid source
@@ -10,12 +11,14 @@ and reuse them in an other environment such as a browser. JSON.stringify doesnt 
 Works with node.js (tested) or in the browser (not tested)
 
 -----------------------------------------------------------------
+<br />
 
 Installation
 ------------
 `npm install toSrc`
 
 -----------------------------------------------------------------
+<br />
 
 Examples
 -----
@@ -82,6 +85,7 @@ Examples
 For more examples check out `test/test.js`
 
 -----------------------------------------------------------------
+<br />
 
 API
 -----
@@ -99,6 +103,7 @@ API
 Just call `toSrc(obj, depth);`
 
 -----------------------------------------------------------------
+<br />
 
 Notes
 -----
@@ -111,6 +116,7 @@ Feel free to modify the code to meet your needs.
 
 
 -----------------------------------------------------------------
+<br />
 
 ## License
 
