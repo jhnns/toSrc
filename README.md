@@ -52,13 +52,14 @@ Examples
     function testFunc() {
         var test = "hello";
     }
-    toSrc(testFunc); /* = 'function () {\n    var test = "hello";\n}' */
+    toSrc(testFunc); // = 'function testFunc() {\n    var test = "hello";\n}'
     toSrc(String); // = 'String', native functions don't expose the source code
 
     // Arrays
     ///////////////////////////////////////
     toSrc([1, 2, "3"]); // = '[1, 2, "3"]'
-    toSrc([1, 2, ["a", "b", "c"]]); // = '[1, 2, undefined]' because the depth is 1 by default
+    toSrc([1, 2, ["a", "b", "c"]]); // = '[1, 2, undefined]' because the depth
+                                    // is 1 by default
     toSrc([1, 2, ["a", "b", "c"]], 2); // = '[1, 2, ["a", "b", "c"]]'
 
     // Objects
@@ -90,14 +91,26 @@ API
 -----
 **toSrc(***obj*, *depth***)**
 
-- *{ * } obj*: The object to stringify. Can also be a primitive like `1` or `true`.
-- *{Number=1} depth*: The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within `obj` will be undefined by default.
+- *{ * } obj*:<br />
+The object to stringify. Can also be a primitive like `1` or `true`.
+- *{Number=1} depth*:<br />
+The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within `obj` will be undefined by default.
 
-**In node.js**
+-----------------------------------------------------------------
+<br />
 
-`require("toSrc")(obj, depth);`
+Usage
+-----
 
-**In the browser**
+### In node.js
+
+```javascript
+var toSrc = require("toSrc");
+
+toSrc(obj, depth);
+```
+
+### In the browser
 
 Just call `toSrc(obj, depth);`
 
