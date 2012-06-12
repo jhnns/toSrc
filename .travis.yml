@@ -7,4 +7,4 @@ node_js:
   - 0.1
 
 script:
-  - mocha
+  - npm test
