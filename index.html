@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>toSrc by jhnns</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/jhnns/toSrc">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>toSrc</h1>
+            <h2>Turns every JavaScript object or primitive into valid source code that can be evaled again.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/jhnns/toSrc/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/jhnns/toSrc/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <p><strong>Turns every JavaScript object or primitive into valid source
+code that can be evaled again.</strong></p>
+
+<p>You can use it to serialize classes, modules or other programming objects
+and reuse them in an other environment such as a browser. JSON.stringify doesnt work with programming objects (that contain functions, dates, etc.) because they're no legal JSONs.</p>
+
+<p>Works with node.js (tested) or in the browser (not tested)</p>
+
+<hr><p><br></p>
+
+<h2>Installation</h2>
+
+<p><code>npm install toSrc</code></p>
+
+<hr><p><br></p>
+
+<h2>Examples</h2>
+
+<div class="highlight">
+<pre>
+    <span class="kd">var</span> <span class="nx">toSrc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"toSrc"</span><span class="p">);</span>
+
+    <span class="c1">// Primitives</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// = '1'</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// = 'true'</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="s2">"1"</span><span class="p">);</span> <span class="c1">// = '"1"'</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="s1">'1'</span><span class="p">);</span> <span class="c1">// = '"1"' toSrc always uses double-quotes    </span>
+
+    <span class="c1">// Constants</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">);</span> <span class="c1">// = 'Math.PI'</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// = 'NaN'</span>
+
+    <span class="c1">// RegExp</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="sr">/myRegEx/gi</span><span class="p">);</span> <span class="c1">// = '/myRegEx/gi'</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">"myRegEx"</span><span class="p">));</span> <span class="c1">// = '/myRegEx/'</span>
+
+    <span class="c1">// Date</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span> <span class="c1">// = 'new Date(&lt;the time of creation in ms&gt;)'</span>
+
+    <span class="c1">// Functions</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="kd">function</span> <span class="nx">testFunc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="s2">"hello"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="nx">testFunc</span><span class="p">);</span> <span class="c1">// = 'function testFunc() {\n    var test = "hello";\n}'</span>
+    <span class="nx">toSrc</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span> <span class="c1">// = 'String', native functions don't expose the source code</span>
+
+    <span class="c1">// Arrays</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="nx">toSrc</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"3"</span><span class="p">]);</span> <span class="c1">// = '[1, 2, "3"]'</span>
+    <span class="nx">toSrc</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">]]);</span> <span class="c1">// = '[1, 2, undefined]' because the depth</span>
+                                    <span class="c1">// is 1 by default</span>
+    <span class="nx">toSrc</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">]],</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// = '[1, 2, ["a", "b", "c"]]'</span>
+
+    <span class="c1">// Objects</span>
+    <span class="c1">///////////////////////////////////////</span>
+    <span class="nx">toSrc</span><span class="p">({</span>
+        <span class="nx">regEx</span><span class="o">:</span> <span class="sr">/regex/gi</span><span class="p">,</span>
+        <span class="nx">anotherObj</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">test</span><span class="o">:</span> <span class="s2">"test"</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="c1">// = '{"regEx": /regex/gi, "anotherObj": undefined}'</span>
+    <span class="c1">// anotherObj is undefined because the depth is 1 by default.</span>
+    <span class="nx">toSrc</span><span class="p">({</span>
+        <span class="s2">"regEx"</span><span class="o">:</span> <span class="sr">/regex/gi</span><span class="p">,</span>
+        <span class="s2">"anotherObj"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"test"</span><span class="o">:</span> <span class="s2">"test"</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="c1">// = '{"regEx": /regex/gi, "anotherObj": {"test": "test"}}'</span>
+
+</pre>
+</div>
+
+
+<p>For more examples check out <code>test/test.js</code></p>
+
+<hr><p><br></p>
+
+<h2>API</h2>
+
+<p><strong>toSrc(</strong><em>obj</em>, <em>depth</em><strong>)</strong></p>
+
+<ul>
+<li>
+<em>{ * } obj</em>:<br>
+The object to stringify. Can also be a primitive like <code>1</code> or <code>true</code>.</li>
+<li>
+<em>{Number=1} depth</em>:<br>
+The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within <code>obj</code> will be undefined by default.</li>
+</ul><hr><p><br></p>
+
+<h2>Usage</h2>
+
+<h3>In node.js</h3>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">toSrc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"toSrc"</span><span class="p">);</span>
+
+<span class="nx">toSrc</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">depth</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<h3>In the browser</h3>
+
+<p>Just call <code>toSrc(obj, depth);</code></p>
+
+<hr><p><br></p>
+
+<h2>Notes</h2>
+
+<ul>
+<li>Circular references will be undefined. No error is thrown, but a warning is logged.</li>
+<li>All math constants are restored to their source representation, e.g.: <code>toSrc(Math.PI); // = 'Math.PI' instead of 3.14...</code>
+</li>
+<li>All dates are restored to their original time of creation, e.g.: <code>toSrc(new Date()) // = 'new Date(&lt;time of creation in ms&gt;)'</code>
+</li>
+<li>Dynamic regular expressions created via <code>new RegExp()</code> will <strong>not</strong> be dynamic anymore. <code>toSrc(new RegExp(someString))</code> will return <code>'/&lt;value of someString&gt;/'</code> instead of `'new RegExp(someString)'</li>
+</ul><p>Feel free to modify the code to meet your needs.</p>
+
+<hr><p><br></p>
+
+<h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2012 Johannes Ewald &lt;<a href="mailto:mail@johannesewald.de">mail@johannesewald.de</a>&gt;</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/jhnns">jhnns</a> can be found on <a href="https://github.com/jhnns/toSrc">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
