@@ -1,4 +1,5 @@
-**toSrc**
+**toSrc** [![Build Status](https://secure.travis-ci.org/jhnns/toSrc.png?branch=master)](http://travis-ci
+.org/jhnns/toSrc)
 ========
 
 **Turns every JavaScript object or primitive into valid source
@@ -115,6 +116,7 @@ toSrc(obj, depth);
 Just call `toSrc(obj, depth);`
 
 -----------------------------------------------------------------
+<br />
 
 Notes
 -----
@@ -127,6 +129,7 @@ Feel free to modify the code to meet your needs.
 
 
 -----------------------------------------------------------------
+<br />
 
 ## License
 
