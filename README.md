@@ -9,14 +9,12 @@ and reuse them in an other environment such as a browser. JSON.stringify doesnt 
 
 Works with node.js (tested) or in the browser (not tested)
 
------------------------------------------------------------------
 <br />
 
 Installation
 ------------
 `npm install toSrc`
 
------------------------------------------------------------------
 <br />
 
 Examples
@@ -84,7 +82,6 @@ Examples
 
 For more examples check out `test/test.js`
 
------------------------------------------------------------------
 <br />
 
 API
@@ -96,7 +93,6 @@ The object to stringify. Can also be a primitive like `1` or `true`.
 - *{Number=1} depth*:<br />
 The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within `obj` will be undefined by default.
 
------------------------------------------------------------------
 <br />
 
 Usage
@@ -114,7 +110,6 @@ toSrc(obj, depth);
 
 Just call `toSrc(obj, depth);`
 
------------------------------------------------------------------
 <br />
 
 Notes
@@ -127,7 +122,6 @@ Notes
 Feel free to modify the code to meet your needs.
 
 
------------------------------------------------------------------
 <br />
 
 ## License

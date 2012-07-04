@@ -1,7 +1,7 @@
 {
     "name": "toSrc",
     "description": "Turns every JavaScript object or primitive into valid source code.",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "homepage": "http://jhnns.github.com/toSrc",
     "repository": {
         "type": "git",
@@ -21,7 +21,7 @@
     "dependencies": {},
     "devDependencies": {},
     "engines": {
-        "node": "0.6.x"
+        "node": "< 0.9.x"
     },
     "scripts": {
        "test": "node test/test.js"
