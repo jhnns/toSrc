@@ -117,7 +117,7 @@ Notes
 * Circular references will be undefined. No error is thrown, but a warning is logged.
 * All math constants are restored to their source representation, e.g.: `toSrc(Math.PI); // = 'Math.PI' instead of 3.14...`
 * All dates are restored to their original time of creation, e.g.: `toSrc(new Date()) // = 'new Date(<time of creation in ms>)'`
-* Dynamic regular expressions created via `new RegExp()` will **not** be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of someString>/'` instead of `'new RegExp(someString)'
+* Dynamic regular expressions created via `new RegExp()` will **not** be dynamic anymore. `toSrc(new RegExp(someString))` will return `'/<value of someString>/'` instead of `'new RegExp(someString)'`
 
 Feel free to modify the code to meet your needs.
 
