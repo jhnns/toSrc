@@ -28,6 +28,8 @@ Examples
     ///////////////////////////////////////
     toSrc(1); // = '1'
     toSrc(true); // = 'true'
+    toSrc(undefined); // = 'undefined'
+    tOSrc(null); // = null
     toSrc("1"); // = '"1"'
     toSrc('1'); // = '"1"' toSrc always uses double-quotes    
 
@@ -84,12 +86,18 @@ For more examples check out `test/test.js`
 
 <br />
 
+
+
 API
 -----
-**toSrc(***obj*, *depth***)**
 
-- *{ * } obj*:<br />
+###toSrc(obj: *, depth: Number): String
+
+- *obj*: <br/>
 The object to stringify. Can also be a primitive like `1` or `true`.
+
+###rewiredModule.&#95;&#95;set&#95;&#95;(name, value)
+
 - *{Number=1} depth*:<br />
 The depth to go. All nested structures like objects or arrays deeper than this will be undefined. Defaults to 1, meaning that every object or array within `obj` will be undefined by default.
 
