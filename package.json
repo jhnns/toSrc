@@ -20,9 +20,6 @@
     },
     "dependencies": {},
     "devDependencies": {},
-    "engines": {
-        "node": "< 0.9.x"
-    },
     "scripts": {
        "test": "node test/test.js"
     }
