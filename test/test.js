@@ -175,5 +175,4 @@ assert.equal(checkIdentity(testObj, copy), false);
 assert.strictEqual(console.log.times, 1);   // toSrc should print a warning on console.log
 console.log = _log; // returning stub
 
-
-
+console.log("Everything ok");
